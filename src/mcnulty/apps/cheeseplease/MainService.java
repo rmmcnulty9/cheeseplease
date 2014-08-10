@@ -28,6 +28,7 @@ public class MainService extends Service implements SensorEventListener{
     public void onStart(Intent intent, int startid) {
 		Log.w ("CHEESE", "Service Started...");
 		isInCamera = false;
+		flickCount = 0;
 		
 		if(manager == null && sensor == null) {
 			Log.w ("CHEESE", "Starting Cheese Listener...");
@@ -45,6 +46,7 @@ public class MainService extends Service implements SensorEventListener{
 	public void onSensorChanged(SensorEvent evt) {
 		if(isInCamera)
 			return;
+		
 		float x = evt.values[0];
 		float y = evt.values[1];
 		float z = evt.values[2];
