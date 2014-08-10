@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">Cheese Please</string>
-    <string name="title_activity_main">MainActivity</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="started">Cheese Please is now running...</string>
 
 </resources>

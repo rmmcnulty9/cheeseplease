@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -55,15 +56,16 @@ public class MainActivity extends Activity {
 			startActivityForResult(i, Cheese.REQUEST_CODE);
 		}
 		else {
+			int duration = Toast.LENGTH_SHORT;
+
+			Toast.makeText(this, this.getString(R.string.started), Toast.LENGTH_LONG).show();
 			startCheeseService();
 		}
 	}
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    	Log.w("CHEESE", "On Activity Result...");
 	    if (requestCode == Cheese.REQUEST_CODE) {
-	    	Log.w("CHEESE", "result code " + (resultCode == RESULT_OK));
 	        if (resultCode == RESULT_OK) {
 	        	Intent mediaScanIntent = new Intent( Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
 	        	 mediaScanIntent.setData(fileUri);
