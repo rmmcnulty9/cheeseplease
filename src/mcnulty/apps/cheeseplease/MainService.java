@@ -15,6 +15,8 @@ public class MainService extends Service implements SensorEventListener{
 	private SensorManager manager = null;;
 	private Sensor sensor = null;
 	private boolean isInCamera = false;
+	
+	private int flickCount = 0;
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -41,7 +43,21 @@ public class MainService extends Service implements SensorEventListener{
 
 	@Override
 	public void onSensorChanged(SensorEvent evt) {
-		if (!isInCamera && Math.abs(evt.values[0]) >= Cheese.THRESHOLD) {
+		if(isInCamera)
+			return;
+		float x = evt.values[0];
+		float y = evt.values[1];
+		float z = evt.values[2];
+		double vector_value = Math.sqrt((x * x) + (y * y) + (z * z));
+//		Log.w("CHEESE", "vector: " + vector_value);
+		if(vector_value >= Cheese.SENSOR_THRESHOLD)
+			flickCount++;
+		else
+			flickCount = 0;
+		
+//		Log.w("CHEESE", "flicks: " + flickCount);
+		if (flickCount == Cheese.FLICK_TARGET) {
+			flickCount = 0;
 			isInCamera = true;
 			Log.w("CHEESE", "-----------------------FIRE CAMERA-----------------------");
 			
