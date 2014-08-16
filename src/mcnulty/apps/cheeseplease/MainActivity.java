@@ -9,17 +9,13 @@ import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.net.Uri.Builder;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.os.Vibrator;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
@@ -47,6 +43,18 @@ public class MainActivity extends Activity {
 			                                 | PowerManager.ACQUIRE_CAUSES_WAKEUP
 			                                 | PowerManager.ON_AFTER_RELEASE, "MyWakeLock");
 			wakeLock.acquire();
+			
+			
+            
+            //OPTION 4 - SUPOSED TO WORK
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
+//            					WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
+//            					WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+//            					WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+			
+
+	        Vibrator vibrator = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
+	        vibrator.vibrate(200);
 			
 			Intent i = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 			fileUri = getOutputMediaFileUri();
