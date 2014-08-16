@@ -21,6 +21,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 
 	private Uri fileUri = null;
+	private WakeLock wakeLock = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,7 +40,7 @@ public class MainActivity extends Activity {
 			kl.disableKeyguard(); 
 
 			PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE); 
-			WakeLock wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK
+			wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK
 			                                 | PowerManager.ACQUIRE_CAUSES_WAKEUP
 			                                 | PowerManager.ON_AFTER_RELEASE, "MyWakeLock");
 			wakeLock.acquire();
@@ -69,6 +70,13 @@ public class MainActivity extends Activity {
 			Toast.makeText(this, this.getString(R.string.started), Toast.LENGTH_LONG).show();
 			startCheeseService();
 		}
+	}
+	
+	@Override
+	protected void onDestroy() {
+		if(wakeLock != null)
+			wakeLock.release();
+		super.onDestroy();
 	}
 	
 	@Override

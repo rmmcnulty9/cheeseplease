@@ -51,13 +51,13 @@ public class MainService extends Service implements SensorEventListener{
 		float y = evt.values[1];
 		float z = evt.values[2];
 		double vector_value = Math.sqrt((x * x) + (y * y) + (z * z));
-		Log.w("CHEESE", "vector: " + vector_value);
+//		Log.w("CHEESE", "vector: " + vector_value);
 		if(vector_value >= Cheese.SENSOR_THRESHOLD)
 			flickCount++;
 		else
 			flickCount = 0;
 		
-		Log.w("CHEESE", "flicks: " + flickCount);
+//		Log.w("CHEESE", "flicks: " + flickCount);
 		if (flickCount == Cheese.FLICK_TARGET) {
 			flickCount = 0;
 			isInCamera = true;
